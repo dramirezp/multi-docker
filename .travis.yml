@@ -9,10 +9,10 @@ script:
   - docker run -e CI=true dramirezp/react-test npm test
 
 after_success:
-  docker build -t dramirezp/multi-client ./client
-  docker build -t dramirezp/multi-nginx ./nginx
-  docker build -t dramirezp/multi-server ./server
-  docker build -t dramirezp/multi-worker ./worker
+  - docker build -t dramirezp/multi-client ./client
+  - docker build -t dramirezp/multi-nginx ./nginx
+  - docker build -t dramirezp/multi-server ./server
+  - docker build -t dramirezp/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
