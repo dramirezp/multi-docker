@@ -9,15 +9,15 @@ script:
   - docker run -e CI=true dramirezp/react-test npm test
 
 after_success:
-  - docker build -t dramirezp/multi-client ./client
-  - docker build -t dramirezp/multi-nginx ./nginx
-  - docker build -t dramirezp/multi-server ./server
-  - docker build -t dramirezp/multi-worker ./worker
+  - docker build -t dramirezpcr/multi-client ./client
+  - docker build -t dramirezpcr/multi-nginx ./nginx
+  - docker build -t dramirezpcr/multi-server ./server
+  - docker build -t dramirezpcr/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push in the github hub
-  - docker push dramirezp/multi-client
-  - docker push dramirezp/multi-nginx
-  - docker push dramirezp/multi-server
-  - docker push dramirezp/multi-worker
+  # Take those images and push in the docker hub
+  - docker push dramirezpcr/multi-client
+  - docker push dramirezpcr/multi-nginx
+  - docker push dramirezpcr/multi-server
+  - docker push dramirezpcr/multi-worker
