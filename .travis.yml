@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t dramirezp/react-test -f ./client/Dockerfile.dev ./client
+
+script: 
+  - docker run dramirezp/react-test npm test -- --coverage
+
+after_success:
+  docker build -t dramirezp/multi-client ./client
+  docker build -t dramirezp/multi-nginx ./nginx
+  docker build -t dramirezp/multi-server ./server
+  docker build -t dramirezp/multi-worker ./worker
+
+# Log in to the docker CLI
+- echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# Take those images and push in the github hub
+- docker push dramirezp/multi-client
+- docker push dramirezp/multi-nginx
+- docker push dramirezp/multi-server
+- docker push dramirezp/multi-worker
